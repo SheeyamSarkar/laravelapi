@@ -19,7 +19,6 @@ class BookResource extends JsonResource
                 'type'=>'Book',
                 'Attributes'=>[
                     'name'=>$this->name,
-                    
                     'description'=>$this->description,
                     'year'=>$this->year,
                     'created_at'=> $this->created_at,

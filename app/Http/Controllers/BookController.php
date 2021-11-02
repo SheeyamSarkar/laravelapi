@@ -37,14 +37,32 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $faker= \Faker\Factory::create(1);
+        /*$faker= \Faker\Factory::create(1);
         $book= Book::create([
             'name'=> $faker->name,
             'description'=> $faker->sentence,
             'year'=> $faker->year
         ]);
 
-        return new BookResource($book);
+        return new BookResource($book);*/
+
+        $book = Book::create([
+            'name'        => $request->name,
+            'description' => $request->description,
+            'year'        => $request->year
+        ]);
+       
+        $data                = array();
+        $data['message']     = ' Book created successfully';
+        $data['name']        = $book->name;
+        $data['description'] = $book->description;
+        $data['year']        = $book->year;
+        $data['id']          = $book->id;
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data,
+        ]);
     }
 
     /**
@@ -76,15 +94,36 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        $book->update([
+        /*$book->update([
             'name'=> $request->input('name'),
             'description'=> $request->input('description'),
             'year'=> $request->input('year')
         ]);
 
-        return new BookResource($book);
+        return new BookResource($book);*/
+
+        $book = Book::find($id);
+        //dd($book);
+        $book->update([
+            'name'        => $request->name ?? $book->name,
+            'description' => $request->description ?? $book->description,
+            'year' => $request->year ?? $book->year
+        ]);
+
+        
+        $data                = array();
+        $data['message']     = 'Book has been updated.';
+        $data['name']        = $book->name;
+        $data['description'] = $book->description;
+        $data['year']        = $book->year;
+        $data['id']          = $book->id;
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data,
+        ]);
     }
 
     /**

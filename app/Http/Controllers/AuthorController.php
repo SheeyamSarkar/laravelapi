@@ -29,7 +29,16 @@ class AuthorController extends Controller
     {
         /*$author= Author::all();
         
-        return response()->json($author);*/
+        return response()->json($author);
+
+$faker= \Faker\Factory::create(1);
+        $author= Author::create([
+            'name'=> $faker->name
+        ]);
+
+        return new AuthorResource($author);
+
+        */
     }
 
     /**
@@ -40,12 +49,21 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $faker= \Faker\Factory::create(1);
-        $author= Author::create([
-            'name'=> $faker->name
-        ]);
+        
 
-        return new AuthorResource($author);
+        $author = Author::create([
+            'name'        => $request->name,
+        ]);
+       
+        $data                = array();
+        $data['message']     = ' Author created successfully';
+        $data['name']        = $author->name;
+        $data['id']          = $author->id;
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data,
+        ]);
     }
 
     /**

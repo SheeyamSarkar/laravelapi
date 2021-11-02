@@ -24,7 +24,22 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        
+        /*protected $table ='book_author';
+
+        $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')
+                  ->references('id')
+                  ->on('authors')
+                  ->cascade('delete');
+
+            $table->unsignedBigInteger('book_id');
+            $table->foreign('book_id')
+                  ->references('id')
+                  ->on('books')
+                  ->cascade('delete');
+
+
+        */
     }
 
     /**
